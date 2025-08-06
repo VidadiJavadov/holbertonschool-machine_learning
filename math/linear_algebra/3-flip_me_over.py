@@ -11,5 +11,4 @@ def matrix_transpose(matrix):
         for j in range(columns):
             new_row.append(matrix[j][i])
         result.append(new_row)
-
     return result
