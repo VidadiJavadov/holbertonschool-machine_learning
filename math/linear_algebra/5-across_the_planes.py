@@ -17,9 +17,9 @@ def add_matrices2D(mat1, mat2):
     """function for adding 2d matrices with same shape"""
     res = []
     if matrix_shape(mat1) == matrix_shape(mat2):
-        for i,j in zip(mat1, mat2):
+        for i, j in zip(mat1, mat2):
             new_row = []
-            for n,k in zip(i,j):
+            for n, k in zip(i,j):
                 new_row.append(n+k)
             res.append(new_row)
         return res
