@@ -12,6 +12,7 @@ def matrix_shape(matrix):
         matrix = matrix[0]
     return shape
 
+
 def add_arrays(arr1, arr2):
     """function for adding matrices with same shape"""
     result = []
