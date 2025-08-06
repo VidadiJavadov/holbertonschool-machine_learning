@@ -18,7 +18,7 @@ def add_arrays(arr1, arr2):
     result = []
     if matrix_shape(arr1) == matrix_shape(arr2):
         for i, j in zip(arr1, arr2):
-                result.append(i+j)
+            result.append(i+j)
         return result
     else:
         return None
