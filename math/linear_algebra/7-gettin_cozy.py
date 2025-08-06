@@ -4,7 +4,13 @@
 
 def cat_matrices2D(mat1, mat2, axis=0):
     """function which returns cat_arrays"""
-    if not mat1 or not mat2 or not isinstance(mat1[0], list) or not isinstance(mat2[0], list):
+    if not mat1:
+        return None
+    elif not mat2:
+        return None
+    elif not isinstance(mat1[0], list):
+        return None
+    elif not isinstance(mat2[0], list):
         return None
 
     if axis == 0:
