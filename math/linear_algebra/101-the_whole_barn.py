@@ -22,16 +22,10 @@ def add_matrices(mat1, mat2):
     """adding two matrices with each other"""
     if(checking_shapes(mat1,mat2)):
         res = []
-        for i, j in zip(mat1, mat2):
-            if(isinstance(i, list)):
-                for k, m in zip(i, j):
-                    if(isinstance(k, list)):
-                        for l, t in zip(k, m):
-                            if(isinstance(l, list)):
-                                for h, u in zip(l,t):
-                                    res.append(h+u)
-                    else:
-                        res.append(k+m)
-            else:
-                res.append(i+j)
-        return res
+        if(isinstance(mat1, list)):
+            for i, j in zip(mat1, mat2):
+                res.append(add_matrices(i, j))
+            return res
+        else:
+            return mat1 + mat2
+    return None
