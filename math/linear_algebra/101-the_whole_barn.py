@@ -20,7 +20,7 @@ def checking_shapes(mat1, mat2):
 
 def add_matrices(mat1, mat2):
     """adding two matrices with each other"""
-    if checking_shapes(mat1,mat2):
+    if checking_shapes(mat1, mat2):
         res = []
         if isinstance(mat1, list):
             for i, j in zip(mat1, mat2):
