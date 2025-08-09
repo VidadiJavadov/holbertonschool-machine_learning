@@ -5,7 +5,7 @@
 def shape_of_mat(mat1):
     """calculate shape of a matrix"""
     shape = []
-    while(isinstance(mat1, list)):
+    while isinstance(mat1, list):
         shape.append(len(mat1))
         mat1 = mat1[0]
     return shape
