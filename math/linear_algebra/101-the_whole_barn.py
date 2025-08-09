@@ -13,17 +13,16 @@ def shape_of_mat(mat1):
 
 def checking_shapes(mat1, mat2):
     """checking equality of two matrices"""
-    if(shape_of_mat(mat1) == shape_of_mat(mat2)):
+    if shape_of_mat(mat1) == shape_of_mat(mat2):
         return True
     return False
 
 
-
 def add_matrices(mat1, mat2):
     """adding two matrices with each other"""
-    if(checking_shapes(mat1,mat2)):
+    if checking_shapes(mat1,mat2):
         res = []
-        if(isinstance(mat1, list)):
+        if isinstance(mat1, list):
             for i, j in zip(mat1, mat2):
                 res.append(add_matrices(i, j))
             return res
