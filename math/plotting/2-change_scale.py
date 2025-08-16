@@ -4,6 +4,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def change_scale():
     """change the scale to log"""
     x = np.arange(0, 28651, 5730)
