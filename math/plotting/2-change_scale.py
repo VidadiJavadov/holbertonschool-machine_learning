@@ -17,4 +17,5 @@ def change_scale():
     plt.title("Exponential Decay of C-14")
     plt.xlabel("Time (years)")
     plt.ylabel("Fraction Remaining")
+    plt.xlim(0, 28650)
     plt.show()
