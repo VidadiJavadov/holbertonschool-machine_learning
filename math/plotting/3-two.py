@@ -20,5 +20,5 @@ def two():
     plt.xlim(0, 20000)
     plt.ylim(0, 1)
     plt.plot(x, y1, color="red", ls="--")
-    plt.plot(x, y2, color="green")
+    plt.plot(x, y2, "g-")
     plt.show()
