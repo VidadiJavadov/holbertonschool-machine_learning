@@ -22,7 +22,8 @@ def bars():
     plt.bar(people, apples, width, color="red")
     plt.bar(people, bananas, width, bottom=apples, color="yellow")
     plt.bar(people, oranges, width, bottom=apples+bananas, color="#ff8000")
-    plt.bar(people, peaches, width, bottom=apples+bananas+oranges, color="#ffe5b4")
+    plt.bar(people, peaches, width, 
+            bottom=apples+bananas+oranges, color="#ffe5b4")
     plt.legend(["apples", "bananas", "oranges", "peaches"])
     plt.ylim(0, 80)
     plt.ylabel("Quantity of Fruit")
