@@ -26,5 +26,3 @@ def bars():
     plt.ylabel("Quantity of Fruit")
     plt.title("Number of Fruit per Person")
     plt.show()
-
-bars()
