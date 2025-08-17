@@ -13,3 +13,5 @@ def line():
     plt.plot(x, y, "r-")
     plt.xlim(0, 10)
     plt.show()
+
+line()
