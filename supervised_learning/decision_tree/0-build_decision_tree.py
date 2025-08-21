@@ -18,12 +18,15 @@ class Node:
 
     def max_depth_below(self) :
         """max depth function"""
-        if not self:
-            return 0
-        else:
-            left = self.max_depth_below(self.left_child)
-            right = self.max_depth_below(self.right_child)
-            return 1 + self.max_depth_below(left, right)
+        if self.is_leaf:
+            return self.depth
+        left_depth = self.depth
+        right_depth = self.depth
+        if self.left_child:
+            left_depth = self.left_child.max_depth_below()
+        if self.right_child:
+            right_depth = self.right_child.max_depth_below()
+        return max(left_depth, right_depth)
 
 class Leaf(Node):
     """Leaf class"""
