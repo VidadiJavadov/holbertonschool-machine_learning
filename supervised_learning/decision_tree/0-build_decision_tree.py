@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-"""Decision Tree"""
+"""
+Decision Tree and Random Forest implementation
+with Node and Leaf classes.
+"""
 
 import numpy as np
 
 
 class Node:
-    """Node class"""
+    """A decision tree node with optional children and split feature."""
 
     def __init__(self, feature=None, threshold=None, left_child=None,
                  right_child=None, is_root=False, depth=0):
-        """Initialize Node"""
+        """Initialize a Node with optional children and depth."""
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -20,7 +23,7 @@ class Node:
         self.depth = depth
 
     def max_depth_below(self):
-        """Return max depth below this node"""
+        """Return the maximum depth below this node, including leaves."""
         if self.is_leaf:
             return self.depth
         left_depth = self.depth
@@ -33,26 +36,26 @@ class Node:
 
 
 class Leaf(Node):
-    """Leaf class"""
+    """A leaf node in a decision tree containing a value."""
 
     def __init__(self, value, depth=None):
-        """Initialize Leaf"""
+        """Initialize a Leaf with a value and optional depth."""
         super().__init__()
         self.value = value
         self.is_leaf = True
         self.depth = depth
 
     def max_depth_below(self):
-        """Return depth (since it's a leaf)"""
+        """Return the depth of this leaf."""
         return self.depth
 
 
-class DecisionTree:
-    """Decision Tree class"""
+class Decision_Tree:
+    """Decision tree object containing the root node."""
 
     def __init__(self, max_depth=10, min_pop=1, seed=0,
                  split_criterion="random", root=None):
-        """Initialize DecisionTree"""
+        """Initialize a Decision_Tree with optional parameters."""
         self.rng = np.random.default_rng(seed)
         if root:
             self.root = root
@@ -66,5 +69,5 @@ class DecisionTree:
         self.predict = None
 
     def depth(self):
-        """Return tree depth"""
+        """Return the maximum depth of the tree."""
         return self.root.max_depth_below()
