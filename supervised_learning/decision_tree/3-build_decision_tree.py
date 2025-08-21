@@ -56,12 +56,14 @@ class Node:
     def get_leaves_below(self):
         """get leaves"""
         if self.is_leaf:
-            return 1
+            return [self]
+        
         leaves = []
-        left = self.left_child.get_leaves_below() if self.left_child else 0
-        right = self.right_child.get_leaves_below() if self.right_child else 0
-        leaves.append(left, right)
-
+        if self.left_child:
+            leaves.extend(self.left_child.get_leaves_below())
+        if self.right_child:
+            leaves.extend(self.right_child.get_leaves_below())
+        return leaves
 
 
 class Leaf(Node):
