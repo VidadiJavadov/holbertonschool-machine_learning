@@ -83,7 +83,7 @@ class Leaf(Node):
     def count_nodes_below(self, only_leaves=False):
         """Always return 1 since this is a leaf."""
         return 1
-    
+
     def __str__(self):
         """str for leaf"""
         return (f"-> leaf [value={self.value}]")
@@ -126,3 +126,4 @@ class Decision_Tree:
     def get_leaves(self):
         """get leaves"""
         return self.root.get_leaves_below()
+    
