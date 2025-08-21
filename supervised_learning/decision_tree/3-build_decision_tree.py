@@ -126,4 +126,3 @@ class Decision_Tree:
     def get_leaves(self):
         """get leaves"""
         return self.root.get_leaves_below()
-    
