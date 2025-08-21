@@ -52,12 +52,12 @@ class Node:
         if only_leaves:
             return left + right
         return 1 + left + right
-    
+
     def get_leaves_below(self):
         """get leaves"""
         if self.is_leaf:
             return [self]
-        
+
         leaves = []
         if self.left_child:
             leaves.extend(self.left_child.get_leaves_below())
@@ -87,8 +87,8 @@ class Leaf(Node):
     def __str__(self):
         """str for leaf"""
         return (f"-> leaf [value={self.value}]")
-    
-    def get_leaves_below(self) :
+
+    def get_leaves_below(self):
         """get leaves"""
         return [self]
 
@@ -118,11 +118,11 @@ class Decision_Tree:
     def count_nodes(self, only_leaves=False):
         """Return the number of nodes in the tree."""
         return self.root.count_nodes_below(only_leaves=only_leaves)
-    
+
     def __str__(self):
         """str for decision tree"""
         return self.root.__str__()
-    
-    def get_leaves(self) :
+
+    def get_leaves(self):
         """get leaves"""
         return self.root.get_leaves_below()
