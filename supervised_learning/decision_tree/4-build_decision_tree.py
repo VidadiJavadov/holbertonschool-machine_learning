@@ -68,8 +68,8 @@ class Node:
     def update_bounds_below(self):
         """update bounds below"""
         if self.is_root:
-            self.upper = {0:np.inf}
-            self.lower = {0:-1*np.inf}
+            self.upper = {0: np.inf}
+            self.lower = {0: -1*np.inf}
 
         for child in [self.left_child, self.right_child]:
             if not child:
