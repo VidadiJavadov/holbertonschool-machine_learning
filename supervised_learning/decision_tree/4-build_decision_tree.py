@@ -64,23 +64,22 @@ class Node:
         if self.right_child:
             leaves.extend(self.right_child.get_leaves_below())
         return leaves
-    
+
     def update_bounds_below(self):
         """update bounds below"""
         if self.is_root: 
             self.upper = { 0:np.inf }
             self.lower = {0 : -1*np.inf }
 
-        
-        if self.left_child:
-            self.left_child.lower = self.lower.copy()
-            self.left_child.upper = self.upper.copy()
-            self.left_child.upper[self.feature] = self.threshold
+        for child in [self.left_child, self.right_child]:
+            if not child:
+                continue
 
-        if self.right_child:
-            self.right_child.lower = self.lower.copy()
-            self.right_child.upper = self.upper.copy()
-            self.right_child.lower[self.feature] = self.threshold
+            if child is self.left_child:
+                child.lower[self.feature] = self.threshold
+
+            if child is self.right_child:
+                child.upper[self.feature] = self.threshold
 
         for child in [self.left_child, self.right_child]:
             child.update_bounds_below()
