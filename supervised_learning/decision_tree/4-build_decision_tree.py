@@ -82,7 +82,8 @@ class Node:
                 child.upper[self.feature] = self.threshold
 
         for child in [self.left_child, self.right_child]:
-            child.update_bounds_below()
+            if child:
+                child.update_bounds_below()
 
 
 class Leaf(Node):
