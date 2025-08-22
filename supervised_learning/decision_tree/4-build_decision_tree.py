@@ -75,6 +75,9 @@ class Node:
             if not child:
                 continue
 
+            child.lower = self.lower.copy()
+            child.upper = self.upper.copy()
+
             if child is self.left_child:
                 child.lower[self.feature] = self.threshold
 
