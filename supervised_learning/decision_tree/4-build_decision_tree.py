@@ -69,7 +69,7 @@ class Node:
         """update bounds below"""
         if self.is_root:
             self.upper = {0:np.inf}
-            self.lower = {0 : -1*np.inf}
+            self.lower = {0:-1*np.inf}
 
         for child in [self.left_child, self.right_child]:
             if not child:
@@ -114,10 +114,10 @@ class Leaf(Node):
     def get_leaves_below(self):
         """get leaves"""
         return [self]
-    
+
     def update_bounds_below(self):
         """update bounds below"""
-        pass 
+        pass
 
 
 class Decision_Tree:
@@ -153,7 +153,7 @@ class Decision_Tree:
     def get_leaves(self):
         """get leaves"""
         return self.root.get_leaves_below()
-    
+
     def update_bounds(self):
         """update bounds"""
         self.root.update_bounds_below()
