@@ -116,7 +116,6 @@ class Node:
         )
 
 
-
 class Leaf(Node):
     """A leaf node in a decision tree containing a value."""
 
