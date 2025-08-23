@@ -92,14 +92,12 @@ class Node:
         """update indicators"""
         def is_large_enough(x):
             """is large enough"""
-            lowers = np.array(list(self.lower.values()))
-            return np.all(x >= lowers, axis=1)
+            return np.all(x[:, key] >= self.lower[key] for key in self.lower.keys())
 
         def is_small_enough(x):
             """is small enough"""
-            uppers = np.array(list(self.upper.values()))
-            return np.all(x <= uppers, axis=1)
-
+            return np.all(x[:, key] <= self.upper[key] for key in self.upper.keys())
+        
         self.indicator = lambda x : np.all(np.array([is_large_enough(x),is_small_enough(x)]),axis=0)
 
 
