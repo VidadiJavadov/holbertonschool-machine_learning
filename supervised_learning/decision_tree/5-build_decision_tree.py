@@ -97,7 +97,7 @@ class Node:
             x[:, key] >= self.lower[key] 
             for key in self.lower.keys()
             ]).T,
-            axis=1
+            axis=1,
             )
 
         def is_small_enough(x):
@@ -107,10 +107,13 @@ class Node:
             x[:, key] <= self.upper[key] 
             for key in self.upper.keys()
             ]).T,
-            axis=1
+            axis=1,
             )
         
-        self.indicator = lambda x : np.all(np.array([is_large_enough(x),is_small_enough(x)]),axis=0)
+        self.indicator = lambda x : np.all(
+            np.array([is_large_enough(x),is_small_enough(x)]),
+            axis=0,
+        )
 
 
 class Leaf(Node):
