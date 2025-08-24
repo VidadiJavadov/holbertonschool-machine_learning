@@ -361,7 +361,7 @@ class Decision_Tree():
     def __str__(self):
         """Return ASCII representation of the decision tree."""
         return self.root.__str__() + "\n"
-    
+
     def possible_thresholds(self, node, feature):
         """Return possible split thresholds for a given node and feature."""
         values = np.unique((self.explanatory[:, feature])[node.sub_population])
