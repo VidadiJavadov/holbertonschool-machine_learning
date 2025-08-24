@@ -1,8 +1,14 @@
+#!/usr/bin/env python3
+"""random forests"""
+
+
 import numpy as np
 Decision_Tree = __import__('8-build_decision_tree').Decision_Tree
 
 class Random_Forest():
+    """random forests"""
     def __init__(self, n_trees=100, max_depth=10, min_pop=1, seed=0):
+        """init func"""
         self.numpy_predicts  = []
         self.target          = None
         self.numpy_preds     = None
