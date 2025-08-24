@@ -230,19 +230,20 @@ class Decision_Tree:
     - Depth                     : {self.depth()}
     - Number of nodes           : {self.count_nodes()}
     - Number of leaves          : {self.count_nodes(only_leaves=True)}
-    - Accuracy on training data : {self.accuracy(self.explanatory, 
+    - Accuracy on training data : {self.accuracy(self.explanatory,
     self.target)}""")
 
     def np_extrema(self, arr):
         """np extrema"""
         return np.min(arr), np.max(arr)
 
-    def random_split_criterion(self,node):
+    def random_split_criterion(self, node):
         """random split"""
-        diff=0
-        while diff==0 :
-            feature=self.rng.integers(0,self.explanatory.shape[1])
-            feature_min,feature_max=self.np_extrema(self.explanatory[:,feature][node.sub_population])
+        diff = 0
+        while diff == 0:
+            feature = self.rng.integers(0, self.explanatory.shape[1])
+            feature_min,feature_max = self.np_extrema(
+            self.explanatory[:,feature][node.sub_population])
             diff=feature_max-feature_min
         x=self.rng.uniform()
         threshold= (1-x)*feature_min + x*feature_max
