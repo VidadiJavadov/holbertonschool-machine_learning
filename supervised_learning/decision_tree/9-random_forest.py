@@ -31,8 +31,11 @@ class Random_Forest:
         depths, nodes, leaves, accuracies = [], [], [], []
 
         for i in range(n_trees):
-            tree = Decision_Tree(max_depth=self.max_depth, min_pop=self.min_pop,
-                                 seed=self.seed + i)
+            tree = Decision_Tree(
+                max_depth=self.max_depth,
+                min_pop=self.min_pop,
+                seed=self.seed + i
+            )
             tree.fit(explanatory, target)
             self.numpy_predicts.append(tree.predict)
             depths.append(tree.depth())
@@ -41,18 +44,21 @@ class Random_Forest:
             accuracies.append(tree.accuracy(tree.explanatory, tree.target))
 
         if verbose == 1:
-            print("  Training finished.\n"
-                  f"    - Mean depth                     : {np.mean(depths)}\n"
-                  f"    - Mean number of nodes           : {np.mean(nodes)}\n"
-                  f"    - Mean number of leaves          : {np.mean(leaves)}\n"
-                  f"    - Mean accuracy on training data : {np.mean(accuracies)}\n"
-                  f"    - Accuracy of the forest on td   : "
-                  f"{self.accuracy(self.explanatory, self.target)}")
+            print(
+                "  Training finished.\n"
+                f"    - Mean depth                     : {np.mean(depths)}\n"
+                f"    - Mean number of nodes           : {np.mean(nodes)}\n"
+                f"    - Mean number of leaves          : {np.mean(leaves)}\n"
+                f"    - Mean accuracy on training data : {np.mean(accuracies)}\n"
+                f"    - Accuracy of the forest on td   : "
+                f"{self.accuracy(self.explanatory, self.target)}"
+            )
 
     def predict(self, explanatory):
         """Predict the class labels for the given data."""
-        all_preds = np.array([predict_func(explanatory) for predict_func in 
-                              self.numpy_predicts])
+        all_preds = np.array(
+            [predict_func(explanatory) for predict_func in self.numpy_predicts]
+        )
         all_preds = all_preds.T
         mode_vals, _ = mode(all_preds, axis=1)
         return mode_vals.ravel()
