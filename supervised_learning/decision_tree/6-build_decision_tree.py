@@ -117,7 +117,7 @@ class Node:
 
     def pred(self, x):
         """pred func"""
-        if x[self.feature] >    self.threshold:
+        if x[self.feature] > self.threshold:
             return self.left_child.pred(x)
         else:
             return self.right_child.pred(x)
