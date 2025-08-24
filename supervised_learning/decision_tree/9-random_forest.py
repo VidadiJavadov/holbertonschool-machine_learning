@@ -32,7 +32,7 @@ class Random_Forest:
 
         for i in range(n_trees):
             tree = Decision_Tree(max_depth=self.max_depth, min_pop=self.min_pop,
-            seed=self.seed + i)
+                                 seed=self.seed + i)
             tree.fit(explanatory, target)
             self.numpy_predicts.append(tree.predict)
             depths.append(tree.depth())
@@ -45,13 +45,13 @@ class Random_Forest:
                   f"    - Mean depth                     : {np.mean(depths)}\n"
                   f"    - Mean number of nodes           : {np.mean(nodes)}\n"
                   f"    - Mean number of leaves          : {np.mean(leaves)}\n"
-                  f"- Mean accuracy on training data : {np.mean(accuracies)}\n"
+                  f"    - Mean accuracy on training data : {np.mean(accuracies)}\n"
                   f"    - Accuracy of the forest on td   : "
                   f"{self.accuracy(self.explanatory, self.target)}")
 
     def predict(self, explanatory):
         """Predict the class labels for the given data."""
-        all_preds = np.array([predict_func(explanatory) for predict_func in
+        all_preds = np.array([predict_func(explanatory) for predict_func in 
                               self.numpy_predicts])
         all_preds = all_preds.T
         mode_vals, _ = mode(all_preds, axis=1)
