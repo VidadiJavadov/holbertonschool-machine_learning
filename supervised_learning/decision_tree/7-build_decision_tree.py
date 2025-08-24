@@ -245,6 +245,7 @@ class Decision_Tree:
             feature_min, feature_max = self.np_extrema(
             self.explanatory[:, feature][node.sub_population]
             )
+
             diff = feature_max-feature_min
         x = self.rng.uniform()
         threshold = (1-x)*feature_min + x*feature_max
