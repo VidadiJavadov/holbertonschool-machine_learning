@@ -206,4 +206,6 @@ class Decision_Tree:
         leaves=self.get_leaves()
         for leaf in leaves:
             leaf.update_indicator()          
-        self.predict = lambda A: np.array(self.pred(all(A[:])))
+        self.predict = lambda A: np.sum(
+            np.array([leaf.indicator(A) * leaf.value for leaf in leaves])
+        )
