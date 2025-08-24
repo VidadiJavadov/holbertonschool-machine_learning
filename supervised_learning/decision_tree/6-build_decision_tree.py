@@ -117,9 +117,9 @@ class Node:
 
     def pred(self,x):
         """pred func"""
-        if x[self.feature]>self.threshold :
+        if x[self.feature]>self.threshold:
             return self.left_child.pred(x)
-        else :
+        else:
             return self.right_child.pred(x)
 
 
@@ -153,7 +153,7 @@ class Leaf(Node):
         """update bounds below"""
         pass
 
-    def pred(self,x):
+    def pred(self, x):
         """pred func"""
         return self.value
 
@@ -196,16 +196,16 @@ class Decision_Tree:
         """update bounds"""
         self.root.update_bounds_below()
 
-    def pred(self,x):
+    def pred(self, x):
         """pred func"""
         return self.root.pred(x)
-    
+
     def update_predict(self):
         """update predict function."""
         self.update_bounds()
-        leaves=self.get_leaves()
+        leaves = self.get_leaves()
         for leaf in leaves:
-            leaf.update_indicator()          
+            leaf.update_indicator()     
         self.predict = lambda A: np.sum(
             np.array([leaf.indicator(A) * leaf.value for leaf in leaves]),
             axis=0
