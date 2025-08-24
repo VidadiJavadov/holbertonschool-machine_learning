@@ -45,15 +45,15 @@ class Random_Forest:
 
         if verbose == 1:
             forest_acc = self.accuracy(self.explanatory, self.target)
+            ac = np.mean(accuracies)
             print(
                 "  Training finished.\n"
                 f"    - Mean depth                     : {np.mean(depths)}\n"
                 f"    - Mean number of nodes           : {np.mean(nodes)}\n"
                 f"    - Mean number of leaves          : {np.mean(leaves)}\n"
-                f"    - Mean accuracy on training data : {np.mean(accuracies)}\n"
+                f"    - Mean accuracy on training data : {ac}\n"
                 f"    - Accuracy of the forest on td   : {forest_acc}"
             )
-
 
     def predict(self, explanatory):
         """Predict the class labels for the given data."""
