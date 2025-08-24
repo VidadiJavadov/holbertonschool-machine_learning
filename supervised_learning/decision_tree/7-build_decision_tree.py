@@ -249,14 +249,21 @@ class Decision_Tree:
             diff = feature_max-feature_min
         x = self.rng.uniform()
         threshold = (1-x)*feature_min + x*feature_max
-        return feature, threshold        
+        return feature, threshold  
 
     def fit_node(self,  node):
         """fit node"""
         node.feature, node.threshold = self.split_criterion(node)
 
-        left_population = (self.explanatory[:, node.feature] > node.threshold) & node.sub_population
-        right_population = (self.explanatory[:, node.feature] <= node.threshold) & node.sub_population
+        left_population = (
+        (self.explanatory[:, node.feature] > node.threshold)
+        & node.sub_population
+        )
+
+        right_population = (
+        (self.explanatory[:, node.feature] <= node.threshold)
+        & node.sub_population
+        )
 
         # Is left node a leaf ?
         is_left_leaf = (np.sum(left_population) < self.min_pop or
