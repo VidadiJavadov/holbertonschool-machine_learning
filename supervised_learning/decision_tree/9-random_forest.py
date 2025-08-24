@@ -49,7 +49,7 @@ class Random_Forest:
                 f"    - Mean depth                     : {np.mean(depths)}\n"
                 f"    - Mean number of nodes           : {np.mean(nodes)}\n"
                 f"    - Mean number of leaves          : {np.mean(leaves)}\n"
-                f"    - Mean accuracy on training data : {np.mean(accuracies)}\n"
+                f"    - Mean accuracy  : {np.mean(accuracies)}\n"
                 f"    - Accuracy of the forest on td   : "
                 f"{self.accuracy(self.explanatory, self.target)}"
             )
