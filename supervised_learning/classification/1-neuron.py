@@ -18,3 +18,17 @@ class Neuron:
         self.__b = 0
         self.__A = 0
 
+        @property
+        def W(self):
+            """getter for Weight"""
+            return self.__W
+
+        @property
+        def b(self):
+            """getter for bias"""
+            return self.__b
+
+        @property
+        def A(self):
+            """getter for Act"""
+            return self.__A
