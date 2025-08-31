@@ -35,7 +35,6 @@ class Neuron:
 
     def forward_prop(self, X):
         """forward_prop"""
-        X = np.ndarray.shape(nx, m)
         Z = np.matmul(self.__W, X) + self.b
         self.__A = 1 / (1 + np.exp(-Z))  # sigmoid activation
         return self.__A
