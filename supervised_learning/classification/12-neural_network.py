@@ -72,7 +72,7 @@ class NeuralNetwork:
 
     def evaluate(self, X, Y):
         """evaluation"""
-        A = self.forward_prop(X)
-        cost = self.cost(Y, A)
+        _, A2 = self.forward_prop(X)
+        cost = self.cost(Y, A2)
 
-        return np.where(A >= 0.5, 1, 0), cost
+        return np.where(A2 >= 0.5, 1, 0), cost
