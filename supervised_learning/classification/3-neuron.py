@@ -41,5 +41,6 @@ class Neuron:
 
     def cost(self, Y, A):
         """cost function"""
-        m = Y.shape[1]
+        m = Y.shape[0]
         cost = -(1/m) * (np.sum(Y * np.log(A)) + (1-Y) * np.log(1.0000001-A))
+        return cost
