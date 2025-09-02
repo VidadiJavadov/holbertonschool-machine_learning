@@ -18,7 +18,7 @@ class DeepNeuralNetwork:
         # 2. Validate layers
         if not isinstance(layers, list) or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
-        if not all(isinstance(node, int) and node > 0 for node in layers):
+        if not (np.issubdtype(layers.dtype, np.integer) and np.all(layers > 0)):
             raise TypeError("layers must be a list of positive integers")
 
         # Number of layers
