@@ -84,14 +84,13 @@ class DeepNeuralNetwork:
     def gradient_descent(self, Y, cache, alpha=0.05):
         """Performs one pass of gradient descent on the neural network"""
         m = Y.shape[1]
-        L = self.__L
 
         # Start with output layer
-        A_prev = cache[f"A{L-1}"]
-        A_curr = cache[f"A{L}"]
+        A_prev = cache[f"A{self.__L-1}"]
+        A_curr = cache[f"A{self.__L}"]
         dZ = A_curr - Y  # Derivative for output layer
 
-        for layer in range(L, 0, -1):
+        for layer in range(self.__L, 0, -1):
             A_prev = cache[f"A{layer-1}"]
             W_curr = self.__weights[f"W{layer}"]
 
