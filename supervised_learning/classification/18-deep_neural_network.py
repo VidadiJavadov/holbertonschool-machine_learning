@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+"""Classification algorithm using Deep Neural Network (DNN class)."""
 import numpy as np
+
 
 class DeepNeuralNetwork:
     def __init__(self, nx, layers):
