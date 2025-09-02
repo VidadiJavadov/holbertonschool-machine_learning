@@ -72,11 +72,11 @@ class DeepNeuralNetwork:
         """Evaluates the neural network's predictions"""
         # Perform forward propagation
         A, _ = self.forward_prop(X)
-        
+
         # Compute cost
         cost = self.cost(Y, A)
-        
+
         # Convert activated outputs to binary predictions
         predictions = np.where(A >= 0.5, 1, 0)
-        
+
         return predictions, cost
