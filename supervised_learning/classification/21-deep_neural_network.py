@@ -85,7 +85,6 @@ class DeepNeuralNetwork:
         """Performs one pass of gradient descent on the neural network"""
         m = Y.shape[1]
         L = self.__L
-        weights = self.__weights.copy()  # Copy to avoid overwriting during calculations
 
         # Start with output layer
         A_prev = cache[f"A{L-1}"]
@@ -94,7 +93,7 @@ class DeepNeuralNetwork:
 
         for layer in range(L, 0, -1):
             A_prev = cache[f"A{layer-1}"]
-            W_curr = weights[f"W{layer}"]
+            W_curr = self.__weights[f"W{layer}"]
 
             # Gradients
             dW = (1/m) * np.dot(dZ, A_prev.T)
