@@ -82,24 +82,18 @@ class DeepNeuralNetwork:
         return predictions, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
-        """Performs one pass of gradient descent on the neural network"""
+        """Gradient descent Function"""
         m = Y.shape[1]
-        AL = cache[f"A{self.__L}"]
-        dZl = AL - Y  # Derivative for output layer
-
+        AL = cache['A{}'.format(self.__L)]
+        dZl = AL - Y
         for i in range(self.__L, 0, -1):
-            A_prev = cache[f"A{i-1}"]
-            Wl = self.__weights[f"W{i}"]
+            Al = cache['A{}'.format(i - 1)]
+            dwl = (dZl @ Al.T) / m
+            dbl = (np.sum(dZl, axis=1, keepdims=True)) / m
 
-            # Gradients (vectorized)
-            dWl = (dZl @ A_prev.T) / m
-            dbl = np.sum(dZl, axis=1, keepdims=True) / m
-
-            # Update weights and bias
-            self.__weights[f"W{i}"] -= alpha * dWl
-            self.__weights[f"b{i}"] -= alpha * dbl
-
-            # Prepare dZ for next layer (backprop)
+            Al_prev = cache['A{}'.format(i - 1)]
+            Wl = self.__weights['W{}'.format(i)]
             if i > 1:
-                A_prev_layer = cache[f"A{i-1}"]
-                dZl = (Wl.T @ dZl) * (A_prev_layer * (1 - A_prev_layer))
+                dZl = (Wl.T @ dZl) * (Al_prev * (1 - Al_prev))
+            self.__weights['W{}'.format(i)] -= alpha * dwl
+            self.__weights['b{}'.format(i)] -= alpha * dbl
