@@ -84,24 +84,22 @@ class DeepNeuralNetwork:
     def gradient_descent(self, Y, cache, alpha=0.05):
         """Performs one pass of gradient descent on the neural network"""
         m = Y.shape[1]
+        AL = cache[f"A{self.__L}"]
+        dZl = AL - Y  # Derivative for output layer
 
-        # Start with output layer
-        A_prev = cache[f"A{self.__L-1}"]
-        A_curr = cache[f"A{self.__L}"]
-        dZ = A_curr - Y  # Derivative for output layer
+        for i in range(self.__L, 0, -1):
+            A_prev = cache[f"A{i-1}"]
+            Wl = self.__weights[f"W{i}"]
 
-        for layer in range(self.__L, 0, -1):
-            A_prev = cache[f"A{layer-1}"]
-            W_curr = self.__weights[f"W{layer}"]
-
-            # Gradients
-            dW = (1/m) * np.dot(dZ, A_prev.T)
-            db = (1/m) * np.sum(dZ, axis=1, keepdims=True)
+            # Gradients (vectorized)
+            dWl = (dZl @ A_prev.T) / m
+            dbl = np.sum(dZl, axis=1, keepdims=True) / m
 
             # Update weights and bias
-            self.__weights[f"W{layer}"] -= alpha * dW
-            self.__weights[f"b{layer}"] -= alpha * db
+            self.__weights[f"W{i}"] -= alpha * dWl
+            self.__weights[f"b{i}"] -= alpha * dbl
 
-            if layer > 1:
-                A_prev_layer = cache[f"A{layer-1}"]
-                dZ = np.dot(W_curr.T, dZ) * (A_prev_layer * (1 - A_prev_layer))
+            # Prepare dZ for next layer (backprop)
+            if i > 1:
+                A_prev_layer = cache[f"A{i-1}"]
+                dZl = (Wl.T @ dZl) * (A_prev_layer * (1 - A_prev_layer))
