@@ -1,44 +1,32 @@
 #!/usr/bin/env python3
-
-"""Deep Neural Network"""
-
+"""Classification algorithm using Deep Neural Network (DNN class)."""
 import numpy as np
 
 
 class DeepNeuralNetwork:
-    """DeepNeuralNet"""
+    """Deep Neural Network class."""
 
     def __init__(self, nx, layers):
-        """init function"""
+        """Init Function"""
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
-
-        # 2. Validate layers
         if not isinstance(layers, list) or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
-        if not (np.issubdtype(layers.dtype, np.integer) and np.all(layers > 0)):
-            raise TypeError("layers must be a list of positive integers")
 
-        # Number of layers
         self.L = len(layers)
-
-        # Cache to hold forward prop values
         self.cache = {}
-
-        # Weights and biases
         self.weights = {}
 
-        # He initialization of weights
-        for l in range(1, self.L + 1):
-            # Previous layer size (nx for first layer, otherwise previous layer's nodes)
-            prev = nx if l == 1 else layers[l - 1]
+        for i in range(self.L):
+            if not isinstance(layers[i], int) or layers[i] <= 0:
+                raise TypeError("layers must be a list of positive integers")
 
-            # He et al. method: N(0, sqrt(2/prev))
-            self.weights["W" + str(l)] = (
-                np.random.randn(layers[l - 1], prev) * np.sqrt(2 / prev)
+            nodes = layers[i]
+            prev_nodes = nx if i == 0 else layers[i - 1]
+
+            self.weights["W{}".format(i + 1)] = (
+                np.random.randn(nodes, prev_nodes) * np.sqrt(2 / prev_nodes)
             )
-
-            # Biases start as zeros
-            self.weights["b" + str(l)] = np.zeros((layers[l - 1], 1))
+            self.weights["b{}".format(i + 1)] = np.zeros((nodes, 1))
