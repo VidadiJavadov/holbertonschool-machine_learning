@@ -50,14 +50,14 @@ class DeepNeuralNetwork:
         """Calculates forward propagation for the deep neural network"""
         self.__cache["A0"] = X
 
-        for l in range(1, self.__L + 1):
-            W = self.__weights[f"W{l}"]
-            b = self.__weights[f"b{l}"]
-            A_prev = self.__cache[f"A{l-1}"]
+        for layer in range(1, self.__L + 1):
+            W = self.__weights[f"W{layer}"]
+            b = self.__weights[f"b{layer}"]
+            A_prev = self.__cache[f"A{layer-1}"]
 
             Z = np.dot(W, A_prev) + b
             A = 1 / (1 + np.exp(-Z))  # sigmoid activation
 
-            self.__cache[f"A{l}"] = A
+            self.__cache[f"A{layer}"] = A
 
         return A, self.__cache
