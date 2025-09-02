@@ -23,3 +23,5 @@ def two():
     plt.plot(x, y2, "g-", label='Ra-226')
     plt.legend(loc='upper right')
     plt.show()
+
+two()

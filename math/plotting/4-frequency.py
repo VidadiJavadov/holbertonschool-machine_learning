@@ -16,3 +16,5 @@ def frequency():
     plt.xlabel("Grades")
     plt.ylabel("Number of Students")
     plt.show()
+
+frequency()

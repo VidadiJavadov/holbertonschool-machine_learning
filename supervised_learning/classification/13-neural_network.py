@@ -17,8 +17,6 @@ class NeuralNetwork:
         if nodes < 1:
             raise ValueError("nodes must be a positive integer")
 
-        np.random.seed(0)
-
         self.__W1 = np.random.randn(nodes, nx)
         self.__b1 = np.zeros((nodes, 1))
         self.__A1 = 0
@@ -87,13 +85,11 @@ class NeuralNetwork:
         dW2 = (1 / m) * np.dot(dZ2, A1.T)
         db2 = (1 / m) * np.sum(dZ2, axis=1, keepdims=True)
 
-        self.__W2 -= alpha * dW2
-        self.__b2 -= alpha * db2
-
-
-        dZ1 = np.dot(self.__W2.T, dZ2) * A1 * (1 - A1)
+        dZ1 = np.dot(self.__W2.T, dZ2) * (A1 * (1 - A1))
         dW1 = (1 / m) * np.dot(dZ1, X.T)
         db1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
 
         self.__W1 -= alpha * dW1
         self.__b1 -= alpha * db1
+        self.__W2 -= alpha * dW2
+        self.__b2 -= alpha * db2

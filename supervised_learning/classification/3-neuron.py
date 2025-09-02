@@ -33,11 +33,7 @@ class Neuron:
         """getter for Act"""
         return self.__A
 
-    def forward_prop(self, X):
-        """forward_prop"""
-        Z = np.matmul(self.__W, X) + self.b
-        self.__A = 1 / (1 + np.exp(-Z))  # sigmoid activation
-        return self.__A
+    
 
     def cost(self, Y, A):
         """cost function"""
