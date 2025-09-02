@@ -4,39 +4,32 @@ import numpy as np
 
 
 class DeepNeuralNetwork:
-    """Deep Neural Network class for binary classification."""
+    """Deep Neural Network class."""
 
     def __init__(self, nx, layers):
-        """Class constructor."""
-        # Validate nx
+        """Init Function"""
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
-
-        # Validate layers
         if not isinstance(layers, list) or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
 
-        # Private attributes
         self.__L = len(layers)
         self.__cache = {}
         self.__weights = {}
 
-        # One loop for validation + initialization
-        prev_nodes = nx
-        for i, nodes in enumerate(layers, start=1):
-            if not isinstance(nodes, int) or nodes <= 0:
+        for i in range(self.__L):
+            if not isinstance(layers[i], int) or layers[i] <= 0:
                 raise TypeError("layers must be a list of positive integers")
 
-            # He et al. initialization for weights
-            self.__weights[f"W{i}"] = (
+            nodes = layers[i]
+            prev_nodes = nx if i == 0 else layers[i - 1]
+
+            self.__weights["W{}".format(i + 1)] = (
                 np.random.randn(nodes, prev_nodes) * np.sqrt(2 / prev_nodes)
             )
-            # Biases initialized with zeros
-            self.__weights[f"b{i}"] = np.zeros((nodes, 1))
-
-            prev_nodes = nodes
+            self.__weights["b{}".format(i + 1)] = np.zeros((nodes, 1))
 
     @property
     def L(self):
