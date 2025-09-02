@@ -94,20 +94,20 @@ class NeuralNetwork:
         self.__W2 -= alpha * dW2
         self.__b2 -= alpha * db2
 
-        def train(self, X, Y, iterations=5000, alpha=0.05):
-            """train"""
-            if not isinstance(iterations, int):
-                raise TypeError("iterations must be an integer")
-            if iterations < 1:
-                raise ValueError("iterations must be a positive integer")
+    def train(self, X, Y, iterations=5000, alpha=0.05):
+        """train"""
+        if not isinstance(iterations, int):
+            raise TypeError("iterations must be an integer")
+        if iterations < 1:
+            raise ValueError("iterations must be a positive integer")
 
-            if not isinstance(alpha, float):
-                raise TypeError("alpha must be a float")
-            if alpha <= 0:
-                raise ValueError("alpha must be positive")
+        if not isinstance(alpha, float):
+            raise TypeError("alpha must be a float")
+        if alpha <= 0:
+            raise ValueError("alpha must be positive")
 
-            for _ in range(iterations):
-                A = self.forward_prop(X)
-                self.gradient_descent(X, Y, A, alpha)
+        for _ in range(iterations):
+            A = self.forward_prop(X)
+            self.gradient_descent(X, Y, A, alpha)
 
-            return self.evaluate(X, Y)
+        return self.evaluate(X, Y)
