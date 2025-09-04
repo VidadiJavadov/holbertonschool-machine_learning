@@ -7,4 +7,4 @@ def one_hot_decode(one_hot):
     """one hot decode"""
     if not isinstance(one_hot, np.ndarray) or one_hot.ndim != 2:
         return None
-    return np.argmax(one_hot)
+    return np.argmax(one_hot, axis=0)
