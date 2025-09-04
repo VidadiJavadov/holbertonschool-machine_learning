@@ -138,7 +138,6 @@ class DeepNeuralNetwork:
                 iters.append(i)
                 if verbose:
                     print("Cost after {} iterations: {}".format(i, cost))
-            # skip gradient update after final forward pass
             if i < iterations:
                 self.gradient_descent(Y, cache, alpha)
         if graph:
