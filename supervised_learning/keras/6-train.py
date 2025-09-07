@@ -7,7 +7,7 @@ import tensorflow.keras as K
 def train_model(network, data, labels, batch_size, epochs,
                 validation_data=None, early_stopping=False, patience=0,
                 verbose=True, shuffle=False):
-    """Trains a model using mini-batch gradient descent with optional validation and early stopping."""
+    """Trains a onal validation and early stopping."""
     callbacks = []
     if early_stopping and validation_data is not None:
         early_stop = K.callbacks.EarlyStopping(monitor='val_loss',
