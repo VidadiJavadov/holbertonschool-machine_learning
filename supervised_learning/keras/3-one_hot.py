@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import tensorflow.keras as K
-"""one hot"""
+"""one hot funct"""
 
 
 def one_hot(labels, classes=None):
