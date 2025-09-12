@@ -5,5 +5,5 @@ import tensorflow as tf
 
 def create_momentum_op(alpha, beta1):
     """create optimizer"""
-    op = tf.keras.optimizers.Adam(alpha, beta1)
+    op = tf.keras.optimizers.SGD(alpha, beta1)
     return op
