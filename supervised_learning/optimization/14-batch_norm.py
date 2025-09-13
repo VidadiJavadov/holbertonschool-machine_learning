@@ -17,7 +17,7 @@ def create_batch_norm_layer(prev, n, activation):
         momentum=0.99,
         epsilon=1e-7,
         center=True,
-        scale=True   
+        scale=True
     )(dense, training=True)
 
     output = activation(bn)
