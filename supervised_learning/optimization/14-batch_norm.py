@@ -18,7 +18,7 @@ def create_batch_norm_layer(prev, n, activation):
         epsilon=1e-7,
         center=True,
         scale=True   
-    )(dense)
+    )(dense, training=True)
 
     output = activation(bn)
     return output
