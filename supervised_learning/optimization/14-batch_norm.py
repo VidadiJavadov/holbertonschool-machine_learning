@@ -5,7 +5,7 @@ import tensorflow as tf
 
 def create_batch_norm_layer(prev, n, activation):
     """batch norm with tensorflow"""
-    kernel_initializer=tf.keras.initializers.VarianceScaling(mode='fan_avg')
+    kernel_initializer = tf.keras.initializers.VarianceScaling(mode='fan_avg')
     dense = tf.keras.layers.Dense(
         n,
         kernel_initializer=kernel_initializer,
