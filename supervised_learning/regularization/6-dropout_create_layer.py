@@ -14,6 +14,9 @@ def dropout_create_layer(prev, n, activation, keep_prob, training=True):
         kernel_initializer=initializer
     )(prev)
 
-    dropout = tf.keras.layers.Dropout(rate=(1 - keep_prob), seed=0)(dense, training=training)
+    dropout = tf.keras.layers.Dropout(
+        rate=(1 - keep_prob),
+        seed=0
+    )(dense, training=training)
 
     return dropout
