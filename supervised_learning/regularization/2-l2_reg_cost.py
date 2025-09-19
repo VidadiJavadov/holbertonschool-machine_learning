@@ -7,4 +7,5 @@ def l2_reg_cost(cost, model):
     """function that computes L2 reg"""
 
     l2_loss = tf.add_n(model.losses)
-    return tf.stack(cost + l2_loss)
+    total_cost = [cost + l for l in l2_loss]
+    return tf.stack(total_cost)
