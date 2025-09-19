@@ -12,4 +12,9 @@ def early_stopping(cost, opt_cost, threshold, patience, count):
         count+=1
 
     stop = count >= patience
-    return stop, count, opt_cost
+    return stop, count
+
+print(early_stopping(1.0, 1.9, 0.5, 15, 5))
+print(early_stopping(1.1, 1.5, 0.5, 15, 2))
+print(early_stopping(1.0, 1.5, 0.5, 15, 8))
+print(early_stopping(1.0, 1.5, 0.5, 15, 14))
