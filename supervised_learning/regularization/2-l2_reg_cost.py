@@ -8,4 +8,4 @@ def l2_reg_cost(cost, model):
 
     l2_loss = tf.add_n(model.losses)
     total_cost = [cost + l for l in l2_loss]
-    return tf.stack(total_cost)
+    return tf.convert_to_tensor(total_cost)
