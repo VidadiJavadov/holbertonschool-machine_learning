@@ -9,6 +9,6 @@ def precision(confusion):
     for i in range(confusion):
         TP = confusion[i, i]
         FP = np.sum(confusion[:, i]) - TP
-        prec = TP / (TP + FP)
+        prec = TP / (TP + FP) if (TP + FP) > 0 else 0
         precision.append(prec)
     return np.array(precision)
