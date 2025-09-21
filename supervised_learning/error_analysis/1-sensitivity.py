@@ -8,7 +8,7 @@ def sensitivity(confusion):
     sensitivity = []
     for i in range(len(confusion[0])):
         TP = confusion[i, i]
-        FN = confusion[i, :] - TP
+        FN = np.sum(confusion[i, :]) - TP
         sens = TP / TP + FN
         sensitivity.append(sens)
     return sensitivity
