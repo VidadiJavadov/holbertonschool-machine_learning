@@ -6,7 +6,7 @@ import numpy as np
 def precision(confusion):
     """precision"""
     precision = []
-    for i in range(confusion[0]):
+    for i in range(len(confusion)):
         TP = confusion[i, i]
         FP = np.sum(confusion[:, i]) - TP
         prec = TP / (TP + FP) if (TP + FP) > 0 else 0
