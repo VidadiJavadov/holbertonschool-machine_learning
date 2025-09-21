@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""sensitivity"""
+import numpy as np
+
+
+def sensitivity(confusion):
+    """sensitivity"""
+    sensitivity = []
+    for i in range(len(confusion[0])):
+        TP = confusion[i, i]
+        FN = confusion[i, :] - TP
+        sens = TP / TP + FN
+        sensitivity.append(sens)
+    return sensitivity
