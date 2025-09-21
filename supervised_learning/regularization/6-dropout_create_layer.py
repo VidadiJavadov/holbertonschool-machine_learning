@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""Create layer with dropout"""
+"""Create a Layer with Dropout"""
 import tensorflow as tf
 
-def dropout_create_layer(prev, n, activation, keep_prob, training=True):
-    """Layer with dropout"""
-    initializer = tf.keras.initializers.VarianceScaling(scale=2.0, mode='fan_avg')
-    weights = initializer(shape=(prev.shape[1], n))
-    bias = tf.zeros([n])
 
-    layer_output = tf.matmul(prev, weights) + bias
-
-    activated_output = activation(layer_output)
+def dropout_create_layer(prev, n, activation,
+                         keep_prob, training=True):
+    """This function creates a layer
+     of a neural network using dropout"""
+    initializer = tf.keras.initializers.VarianceScaling(
+        scale=2.0, mode="fan_avg"
+    )
+    layer = tf.keras.layers.Dense(
+        units=n, activation=activation,
+        kernel_initializer=initializer,
+    )(prev)
 
     if training:
-        activated_output = tf.nn.dropout(activated_output, rate=1 - keep_prob)
-    
-    return activated_output
+        dropout = tf.nn.dropout(layer, rate=1 - keep_prob)
+    return dropout
