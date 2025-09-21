@@ -9,6 +9,6 @@ def sensitivity(confusion):
     for i in range(len(confusion[0])):
         TP = confusion[i, i]
         FN = np.sum(confusion[i, :]) - TP
-        sens = TP / TP + FN
+        sens = TP / (TP + FN)
         sensitivity.append(sens)
     return sensitivity
