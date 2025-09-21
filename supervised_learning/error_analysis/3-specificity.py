@@ -5,11 +5,13 @@ import numpy as np
 
 def specificity(confusion):
     """specificity"""
-    TN = np.sum(confusion)
+    total = np.sum(confusion)
     specificity = []
-    for i in range(len(confusion[0])):
+    for i in range(len(confusion)):
         TP = confusion[i, i]
         FP = np.sum(confusion[:, i]) - TP
+        FN = np.sum(confusion[i, :]) - TP
+        TN = total - (TP + FP + FN)
         spec = TN / (TN + FP)
         specificity.append(spec)
     return np.array(specificity)
