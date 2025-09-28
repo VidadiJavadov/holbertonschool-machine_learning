@@ -2,6 +2,7 @@
 """convolve grayscale"""
 import numpy as np
 
+
 def convolve_grayscale_valid(images, kernel):
     """function for convolving"""
     m, h, w = images.shape
