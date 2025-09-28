@@ -9,8 +9,9 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     kh, kw = kernel.shape
     sh, sw = stride
 
-    ph, pw = padding
-    if padding == 'valid':
+    if type(padding) == tuple:
+        ph, pw = padding
+    elif padding == 'valid':
         ph, pw = 0, 0
     elif padding == 'same':
         ph = max((int(np.ceil(((h - 1) * sh + kh - h) / 2))), 0)
