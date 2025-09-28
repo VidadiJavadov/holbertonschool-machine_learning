@@ -12,7 +12,7 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     if kc != c:
         raise ValueError("Kernel channels must match image channels")
 
-    if type(padding) == tuple:
+    if isinstance(padding, tuple):
         ph, pw = padding
     elif padding == 'valid':
         ph, pw = 0, 0
