@@ -2,6 +2,7 @@
 """Pooling on images"""
 import numpy as np
 
+
 def pool(images, kernel_shape, stride, mode='max'):
     """Performs pooling on images"""
     m, h, w, c = images.shape
@@ -16,7 +17,7 @@ def pool(images, kernel_shape, stride, mode='max'):
     for i in range(out_h):
         for j in range(out_w):
             region = images[:, i*sh:i*sh+kh, j*sw:j*sw+kw, :]
-            
+
             if mode == 'max':
                 output[:, i, j, :] = np.max(region, axis=(1, 2))
             elif mode == 'avg':
