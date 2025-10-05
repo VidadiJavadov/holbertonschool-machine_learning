@@ -18,7 +18,7 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
             for w in range(w_new):
                 vert_start, vert_end = h * sh, h * sh + kh
                 horiz_start, horiz_end = w * sw, w * sw + kw
-                A_slice = A_prev[i, vert_start:vert_end, 
+                A_slice = A_prev[i, vert_start:vert_end,
                                  horiz_start:horiz_end, :]
 
                 if mode == 'max':
