@@ -1,19 +1,10 @@
+#!/usr/bin/env python3
+"""convnet"""
 import numpy as np
 
 def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
     Performs forward propagation over a convolutional layer of a neural network.
-
-    Parameters:
-        A_prev (numpy.ndarray): (m, h_prev, w_prev, c_prev) - output of previous layer
-        W (numpy.ndarray): (kh, kw, c_prev, c_new) - kernels
-        b (numpy.ndarray): (1, 1, 1, c_new) - biases
-        activation (function): activation function to apply
-        padding (str): "same" or "valid"
-        stride (tuple): (sh, sw) - strides
-
-    Returns:
-        numpy.ndarray: The output of the convolutional layer
     """
     m, h_prev, w_prev, c_prev = A_prev.shape
     kh, kw, c_prev, c_new = W.shape
