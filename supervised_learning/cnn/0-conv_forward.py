@@ -2,6 +2,7 @@
 import numpy as np
 """convnet"""
 
+
 def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """Performs forward propagation over a convolutional layer."""
     m, h_prev, w_prev, c_prev = A_prev.shape
