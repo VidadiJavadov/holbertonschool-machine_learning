@@ -2,6 +2,7 @@
 """lenet5"""
 from tensorflow import keras as K
 
+
 def lenet5(X):
     """
     Builds a modified version of the LeNet-5 architecture using Keras.

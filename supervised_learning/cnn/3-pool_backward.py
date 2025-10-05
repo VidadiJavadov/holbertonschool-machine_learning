@@ -2,6 +2,7 @@
 """pool back"""
 import numpy as np
 
+
 def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
     """
     Performs backpropagation over a pooling layer.
