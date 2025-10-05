@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""lenet5"""
 from tensorflow import keras as K
 
 def lenet5(X):
