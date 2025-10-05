@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import numpy as np
-"""convnet"""
+"""Convolutional neural network"""
 
 
 def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
