@@ -20,15 +20,12 @@ def densenet121(growth_rate=32, compression=1.0):
     # Input layer
     inputs = K.Input(shape=(224, 224, 3))
     
-    # Initial convolution and pooling
-    x = K.layers.Conv2D(filters=64,
-                        kernel_size=7,
-                        strides=2,
-                        padding='same',
-                        kernel_initializer=he_init)(inputs)
-    x = K.layers.BatchNormalization()(x)
+    # Initial BatchNorm + ReLU + Conv + MaxPool
+    x = K.layers.BatchNormalization()(inputs)
     x = K.layers.ReLU()(x)
-    x = K.layers.AveragePooling2D(pool_size=3, strides=2, padding='same')(x)
+    x = K.layers.Conv2D(64, kernel_size=7, strides=2, padding='same',
+                        kernel_initializer=he_init)(x)
+    x = K.layers.MaxPooling2D(pool_size=3, strides=2, padding='same')(x)
     
     # Dense Block 1
     x, channels = dense_block(x, 6, growth_rate)
@@ -51,13 +48,14 @@ def densenet121(growth_rate=32, compression=1.0):
     # Dense Block 4
     x, channels = dense_block(x, 16, growth_rate)
     
-    # Global average pooling
+    # Final BatchNorm + ReLU + GlobalAvgPool
     x = K.layers.BatchNormalization()(x)
     x = K.layers.ReLU()(x)
     x = K.layers.GlobalAveragePooling2D()(x)
     
     # Fully connected layer
-    outputs = K.layers.Dense(1000, activation='softmax', kernel_initializer=he_init)(x)
+    outputs = K.layers.Dense(1000, activation='softmax',
+                             kernel_initializer=he_init)(x)
     
     # Create model
     model = K.Model(inputs=inputs, outputs=outputs)
