@@ -33,4 +33,17 @@ def densenet121(growth_rate=32, compression=1.0):
     X, nb_filters = transition_layer(X, nb_filters, compression)
 
     # Dense Block 4
-    X, nb_filters = dense_block(X, nb_filters, growth_rate
+    X, nb_filters = dense_block(X, nb_filters, growth_rate, 16)
+
+    # Global Average Pooling
+    X = K.layers.BatchNormalization(axis=3)(X)
+    X = K.layers.Activation('relu')(X)
+    X = K.layers.GlobalAveragePooling2D()(X)
+
+    # Output layer (ImageNet 1000 classes)
+    X = K.layers.Dense(
+        1000, activation='softmax', kernel_initializer=he_normal
+    )(X)
+
+    model = K.Model(inputs=X_input, outputs=X)
+    return model
