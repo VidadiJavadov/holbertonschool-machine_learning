@@ -1,0 +1,1 @@
+This directory contains 1 project for cifar 10 classification and transfer learninig is used for increasing accuracy and decreasing computation
