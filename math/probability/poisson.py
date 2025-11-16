@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """poisson"""
-import math
 
 class Poisson:
     """Represents a Poisson distribution."""
