@@ -39,4 +39,5 @@ class Poisson:
         total = 0
         for i in range(k + 1):
             total += self.pmf(i)
+
         return total
