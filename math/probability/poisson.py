@@ -23,6 +23,10 @@ class Poisson:
         k = int(k)
         if k < 0:
             return 0
-        # Poisson PMF formula: P(X=k) = (e^-λ * λ^k) / k!
-        return (math.exp(-self.lambtha) * (self.lambtha ** k)) / math.factorial(k)
-
+        
+        e = 2.7182818285
+        e_term = 1 / (e ** self.lambtha)
+        factorial = 1
+        for i in range(1, k + 1):
+            factorial *= i
+        return (self.lambtha ** k) * e_term / factorial
