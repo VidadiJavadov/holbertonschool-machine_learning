@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Posterior probability"""
-
-
 import numpy as np
+
 
 def posterior(x, n, P, Pr):
     """
@@ -33,7 +32,6 @@ def posterior(x, n, P, Pr):
 
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-
 
     coef = (np.math.factorial(n) /
             (np.math.factorial(n - x) * np.math.factorial(x)))
