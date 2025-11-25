@@ -2,7 +2,6 @@
 """Marginal probability"""
 
 import numpy as np
-intersection = __import__('1-intersection').intersection
 
 
 def marginal(x, n, P, Pr):
@@ -35,5 +34,9 @@ def marginal(x, n, P, Pr):
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
 
-    inter = intersection(x, n, P, Pr)
+    coef = (np.math.factorial(n) /
+            (np.math.factorial(n - x) * np.math.factorial(x)))
+
+    likelihoods = coef * (P ** x) * ((1 - P) ** (n - x))
+    inter = likelihoods * Pr
     return np.sum(inter)
