@@ -2,7 +2,6 @@
 """Intersection probability"""
 
 import numpy as np
-likelihood = __import__('0-likelihood').likelihood
 
 
 def intersection(x, n, P, Pr):
@@ -35,7 +34,10 @@ def intersection(x, n, P, Pr):
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
 
-    like = likelihood(x, n, P)
-    inter = like * Pr
+    coef = (np.math.factorial(n) /
+            (np.math.factorial(n - x) * np.math.factorial(x)))
+
+    likelihoods = coef * (P ** x) * ((1 - P) ** (n - x))
+    inter = likelihoods * Pr
 
     return inter
