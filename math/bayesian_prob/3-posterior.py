@@ -2,9 +2,6 @@
 """Posterior probability"""
 
 import numpy as np
-marginal = __import__('2-marginal').marginal
-intersection = __import__('1-intersection').intersection
-
 
 def posterior(x, n, P, Pr):
     """
