@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
+"""Dimensionality Reduction algorithms implementations."""
 import numpy as np
 
 
 def pca(X, var=0.95):
-    """Perform PCA on X preserving var fraction of variance."""
-    cov = np.cov(X, rowvar=False)
-    eig_vals, eig_vecs = np.linalg.eigh(cov)
+    """
+    Compute the PCA, to get var% of the var explain
+    :param X: The X to decompose
+    :param var: The var threshold
+    :return: THe W matrix
+    """
+    U, S, Vt = np.linalg.svd(X)
 
-    idx = np.argsort(eig_vals)[::-1]
-    eig_vals = eig_vals[idx]
-    eig_vecs = eig_vecs[:, idx]
+    total_var_explain = 0
+    idx = 0
 
-    explained = eig_vals / np.sum(eig_vals)
-    cumulative = np.cumsum(explained)
+    normal_S = S / np.sum(S)
 
-    nd = np.searchsorted(cumulative, var) + 1
-    return eig_vecs[:, :nd]
+    for var_explain in normal_S:
+        total_var_explain += var_explain
+        idx += 1
+        if total_var_explain >= var:
+            break
+
+    return Vt.T[..., :idx]
