@@ -1,29 +1,21 @@
 #!/usr/bin/env python3
 import numpy as np
-"""PCA dimensionality reduction"""
 
 
 def pca(X, var=0.95):
-    """Performs PCA on dataset X while preserving given variance fraction."""
-    
-    # Compute covariance matrix
-    cov = np.cov(X, rowvar=False)
-    
-    # Eigen decomposition
-    eig_vals, eig_vecs = np.linalg.eigh(cov)
-    
-    # Sort eigenvalues in descending order
+    """Perform PCA on X while preserving var fraction of variance."""
+    U, S, Vt = np.linalg.svd(X, full_matrices=False)
+    eig_vals = (S ** 2) / (X.shape[0] - 1)
+    eig_vecs = Vt.T
+
     idx = np.argsort(eig_vals)[::-1]
     eig_vals = eig_vals[idx]
     eig_vecs = eig_vecs[:, idx]
-    
-    # Compute explained variance ratio
+
     explained = eig_vals / np.sum(eig_vals)
     cumulative = np.cumsum(explained)
-    
-    # Determine number of components needed
+
     nd = np.searchsorted(cumulative, var) + 1
-    
-    # Return the projection matrix W
-    W = eig_vecs[:, :nd]
-    return W
+    nd = min(nd, eig_vecs.shape[1])
+
+    return eig_vecs[:, :nd]
