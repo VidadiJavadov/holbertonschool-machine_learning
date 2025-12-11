@@ -5,8 +5,12 @@ import numpy as np
 
 def initialize(X, k):
     """Initializes K-means centroids with a multivariate uniform distrib."""
-    if (not isinstance(X, np.ndarray) or X.ndim != 2 or
-        not isinstance(k, int) or k <= 0):
+    if (
+    not isinstance(X, np.ndarray)
+    or X.ndim != 2
+    or not isinstance(k, int)
+    or k <= 0
+    ):
         return None
 
     # Minimum and maximum values per dimension
