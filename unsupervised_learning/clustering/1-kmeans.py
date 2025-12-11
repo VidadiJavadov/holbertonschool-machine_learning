@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""K-means clustering algorithm."""
+"""K-means clustering."""
 
 import numpy as np
+initialize = __import__('0-initialize').initialize
 
 
 def kmeans(X, k, iterations=1000):
-    """Performs K-means clustering on dataset X."""
+    """Perform K-means on X."""
     if (
         not isinstance(X, np.ndarray)
         or X.ndim != 2
@@ -18,32 +19,34 @@ def kmeans(X, k, iterations=1000):
 
     n, d = X.shape
 
-    # --- 1st use of uniform() → initialize centroids ---
+    # Initialize centroids using 0-initialize.py (1st uniform call happens there)
+    C = initialize(X, k)
+    if C is None:
+        return None, None
+
+    # Precompute bounds for possible reinitialization of empty clusters
     min_vals = X.min(axis=0)
     max_vals = X.max(axis=0)
-    C = np.random.uniform(min_vals, max_vals, (k, d))
 
-    for _ in range(iterations):  # 1st allowed loop
-        # Compute distances: shape (n, k)
+    for _ in range(iterations):      # 1st loop
+        # Compute distances from each point to each centroid: shape (n, k)
         distances = np.linalg.norm(X[:, None, :] - C[None, :, :], axis=2)
-
-        # Assign each point to the closest centroid
         clss = np.argmin(distances, axis=1)
 
-        # Store previous centroids to check convergence
         C_prev = C.copy()
 
-        # Update centroids (2nd allowed loop)
-        for i in range(k):
+        # Update centroids: mean of points in each cluster
+        for i in range(k):          # 2nd loop
             points = X[clss == i]
             if points.size == 0:
-                # --- 2nd use of uniform() → reinitialize empty cluster ---
+                # 2nd and last use of np.random.uniform
                 C[i] = np.random.uniform(min_vals, max_vals, (1, d))
             else:
                 C[i] = points.mean(axis=0)
 
-        # Check if centroids stopped changing
-        if np.allclose(C_prev, C):
-            break
+        # If centroids didn't change, we are done
+        if np.array_equal(C_prev, C):
+            return C, clss
 
+    # If we exit by reaching max iterations, return last C and clss
     return C, clss
