@@ -1,44 +1,54 @@
 #!/usr/bin/env python3
-"""Optimum K"""
+"""Comment of Function"""
 import numpy as np
 kmeans = __import__('1-kmeans').kmeans
 variance = __import__('2-variance').variance
 
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
-    """Tests for the optimum number of clusters by variance."""
-    if (not isinstance(X, np.ndarray) or X.ndim != 2 or
-        not isinstance(kmin, int) or kmin <= 0 or
-        (kmax is not None and
-         (not isinstance(kmax, int) or kmax < kmin)) or
-        not isinstance(iterations, int) or iterations <= 0):
+    """Tests for the optimum number of clusters by variance"""
+    if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None, None
 
-    # If kmax not provided → use n
+    if not isinstance(kmin, int) or kmin <= 0:
+        return None, None
+
+    if kmax is not None and (not isinstance(kmax, int) or kmax < kmin):
+        return None, None
+
+    if not isinstance(iterations, int) or iterations <= 0:
+        return None, None
+
+    if isinstance(kmax, int) and kmax <= kmin:
+        return None, None
+
     if kmax is None:
-        kmax = X.shape[0]
-
-    # Must analyze at least 2 cluster sizes
-    if kmax - kmin + 1 < 2:
-        return None, None
+        max_cluster = X.shape[0]
+    else:
+        max_cluster = kmax
 
     results = []
-    vars_list = []
+    d_vars = []
 
-    # ----- LOOP 1: run kmeans for each k -----
-    for k in range(kmin, kmax + 1):
+    C, clss = kmeans(X, kmin, iterations)
+
+    results.append((C, clss))
+
+    base_var = variance(X, C)
+
+    d_vars = [0.0]
+
+    k = kmin + 1
+
+    while k < max_cluster + 1:
         C, clss = kmeans(X, k, iterations)
-        if C is None:
-            return None, None
+
+        current_var = variance(X, C)
+
         results.append((C, clss))
 
-        var = variance(X, C)
-        if var is None:
-            return None, None
-        vars_list.append(var)
+        d_vars.append(base_var - current_var)
 
-    # ----- LOOP 2: compute delta variance -----
-    base = vars_list[0]
-    d_vars = [v - base for v in vars_list]
+        k += 1
 
     return results, d_vars
