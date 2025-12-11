@@ -40,7 +40,7 @@ def kmeans(X, k, iterations=1000):
             points = X[clss == i]
             if points.size == 0:
                 # 2nd and last use of np.random.uniform
-                C[i] = np.random.uniform(min_vals, max_vals, (1, d))
+                C[i] = np.random.uniform(min_vals, max_vals, d)
             else:
                 C[i] = points.mean(axis=0)
 
