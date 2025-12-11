@@ -5,7 +5,7 @@ import numpy as np
 
 
 def initialize(X, k):
-    """Simple uniform initialization."""
+    """Initialize centroids uniformly."""
     if (
         not isinstance(X, np.ndarray)
         or X.ndim != 2
@@ -17,12 +17,12 @@ def initialize(X, k):
     min_vals = X.min(axis=0)
     max_vals = X.max(axis=0)
 
-    # uniform used ONCE here
+    # np.random.uniform #1
     return np.random.uniform(min_vals, max_vals, (k, X.shape[1]))
 
 
 def kmeans(X, k, iterations=1000):
-    """Simplest possible K-means (only numpy)."""
+    """Perform K-means with ONLY TWO LOOPS allowed."""
     if (
         not isinstance(X, np.ndarray)
         or X.ndim != 2
@@ -35,7 +35,6 @@ def kmeans(X, k, iterations=1000):
 
     n, d = X.shape
 
-    # --- initialize centroids ---
     C = initialize(X, k)
     if C is None:
         return None, None
@@ -43,27 +42,25 @@ def kmeans(X, k, iterations=1000):
     min_vals = X.min(axis=0)
     max_vals = X.max(axis=0)
 
-    for _ in range(iterations):     # 1st allowed loop
-        # Compute distances from every point to every centroid
+    for _ in range(iterations):       # ← LOOP 1
+        # Vectorized distance computation (NO LOOPS)
         distances = np.linalg.norm(X[:, None, :] - C[None, :, :], axis=2)
 
-        # Assign each point to closest centroid
+        # Assign clusters (NO LOOPS)
         clss = np.argmin(distances, axis=1)
 
-        # Save previous centroids to check for change
         C_prev = C.copy()
 
-        # Update centroids
-        for i in range(k):          # 2nd allowed loop
+        for i in range(k):            # ← LOOP 2
             points = X[clss == i]
 
             if points.size == 0:
-                # 2nd and final allowed uniform call
+                # np.random.uniform #2
                 C[i] = np.random.uniform(min_vals, max_vals, (1, d))
             else:
                 C[i] = points.mean(axis=0)
 
-        # Convergence check
+        # If centroids do not change → STOP
         if np.array_equal(C_prev, C):
             return C, clss
 
