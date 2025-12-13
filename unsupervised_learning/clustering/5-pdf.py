@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""calculate pdf"""
 import numpy as np
 
 
