@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
 kmeans = __import__('1-kmeans').kmeans
+"""initialize gaussian mixture model"""
 
 
 def initialize(X, k):
