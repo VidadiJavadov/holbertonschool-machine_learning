@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import tensorflow as tf
+import tensorflow.keras as keras
 "Simplest autoencoder"
 
 
@@ -15,30 +15,30 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     """
 
     # -------- Encoder --------
-    encoder_input = tf.keras.Input(shape=(input_dims,))
+    encoder_input = keras.Input(shape=(input_dims,))
     x = encoder_input
 
     for units in hidden_layers:
-        x = tf.keras.layers.Dense(units, activation='relu')(x)
+        x = keras.layers.Dense(units, activation='relu')(x)
 
-    latent = tf.keras.layers.Dense(latent_dims, activation='relu')(x)
+    latent = keras.layers.Dense(latent_dims, activation='relu')(x)
 
-    encoder = tf.keras.Model(encoder_input, latent)
+    encoder = keras.Model(encoder_input, latent)
 
     # -------- Decoder --------
-    decoder_input = tf.keras.Input(shape=(latent_dims,))
+    decoder_input = keras.Input(shape=(latent_dims,))
     x = decoder_input
 
     for units in reversed(hidden_layers):
-        x = tf.keras.layers.Dense(units, activation='relu')(x)
+        x = keras.layers.Dense(units, activation='relu')(x)
 
-    decoder_output = tf.keras.layers.Dense(input_dims, activation='sigmoid')(x)
+    decoder_output = keras.layers.Dense(input_dims, activation='sigmoid')(x)
 
-    decoder = tf.keras.Model(decoder_input, decoder_output)
+    decoder = keras.Model(decoder_input, decoder_output)
 
     # -------- Autoencoder --------
     auto_output = decoder(encoder(encoder_input))
-    auto = tf.keras.Model(encoder_input, auto_output)
+    auto = keras.Model(encoder_input, auto_output)
 
     auto.compile(
         optimizer='adam',
