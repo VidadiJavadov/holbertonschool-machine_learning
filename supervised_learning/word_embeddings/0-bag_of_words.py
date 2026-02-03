@@ -1,41 +1,45 @@
 #!/usr/bin/env python3
-"""bagofwords"""
+"""Comment of Function"""
 import numpy as np
-import re
+
 
 def bag_of_words(sentences, vocab=None):
-    """
-    Creates a bag of words embedding matrix
-    """
-    # Preprocess sentences: 
-    # 1. Convert to lowercase
-    # 2. Use regex \b\w{2,}\b to find words with 2 or more characters.
-    #    This removes punctuation and single letters (like 's' from "children's").
-    processed_sentences = [re.findall(r"\b\w{2,}\b", s.lower()) for s in sentences]
+    """Bag of Words"""
+    tokenized_sentences = []
+    for sentence in sentences:
+        cleaned = sentence.lower()
+        for char in "!.,?;:\"":
+            cleaned = cleaned.replace(char, " ")
+        words = cleaned.split()
+        processed_words = []
+        for word in words:
+            if word.endswith("'s"):
+                word = word[:-2]
+            elif word.endswith("'"):
+                word = word[:-1]
+            if word:
+                processed_words.append(word)
+        tokenized_sentences.append(processed_words)
 
     if vocab is None:
-        # If vocab is None, collect all unique words from the sentences
-        unique_words = set()
-        for sent in processed_sentences:
-            unique_words.update(sent)
-        features = sorted(list(unique_words))
+        vocab_set = set()
+        for words in tokenized_sentences:
+            vocab_set.update(words)
+        vocab = sorted(list(vocab_set))
     else:
-        # Use the provided vocabulary
-        features = vocab
+        vocab = list(vocab)
 
-    # Create a dictionary for O(1) index lookup
-    feature_to_index = {word: i for i, word in enumerate(features)}
+    features = vocab
 
-    # Initialize the embeddings matrix with zeros
+    word_to_idx = {word: idx for idx, word in enumerate(features)}
+
     s = len(sentences)
     f = len(features)
     embeddings = np.zeros((s, f), dtype=int)
 
-    # Fill the matrix
-    for i, sent in enumerate(processed_sentences):
-        for word in sent:
-            if word in feature_to_index:
-                j = feature_to_index[word]
-                embeddings[i, j] += 1
+    for i, words in enumerate(tokenized_sentences):
+        for word in words:
+            if word in word_to_idx:
+                embeddings[i, word_to_idx[word]] += 1
 
-    return embeddings, features
+    return embeddings, np.array(features)
