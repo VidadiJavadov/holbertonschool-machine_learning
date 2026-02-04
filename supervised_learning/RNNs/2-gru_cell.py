@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""GRU implementation"""
 import numpy as np
 
 
