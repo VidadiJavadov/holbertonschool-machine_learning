@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""RNN"""
+"""RNN implementation"""
 import numpy as np
+
 
 def rnn(rnn_cell, X, h_0):
     """
