@@ -46,4 +46,3 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
             best_BIC = current_BIC
 
     return best_k, best_result, L, b
-fvr
