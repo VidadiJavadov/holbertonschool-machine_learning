@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""LSTM implementation"""
 import numpy as np
 
 
