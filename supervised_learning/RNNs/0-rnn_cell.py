@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""RNN cell"""
 import numpy as np
 
 
