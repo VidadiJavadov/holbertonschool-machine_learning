@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
+"""rnn encoder attention"""
 import tensorflow as tf
-"""rnn encoder"""
 
 
 class RNNEncoder(tf.keras.layers.Layer):
