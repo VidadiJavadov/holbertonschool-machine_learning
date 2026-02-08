@@ -2,6 +2,7 @@
 import tensorflow as tf
 """rnn encoder"""
 
+
 class RNNEncoder(tf.keras.layers.Layer):
     """
     RNN Encoder for machine translation
