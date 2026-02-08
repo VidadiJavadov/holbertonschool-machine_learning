@@ -8,7 +8,7 @@ class RNNDecoder(tf.keras.layers.Layer):
     """RNN Decoder with attention for machine translation"""
 
     def __init__(self, vocab, embedding, units, batch):
-        """Initialize decoder layers"""
+        """Initialize decoder"""
         super(RNNDecoder, self).__init__()
 
         self.embedding = tf.keras.layers.Embedding(
@@ -18,7 +18,7 @@ class RNNDecoder(tf.keras.layers.Layer):
 
         self.gru = tf.keras.layers.GRU(
             units,
-            return_sequences=False,
+            return_sequences=True,
             return_state=True,
             recurrent_initializer='glorot_uniform'
         )
@@ -28,22 +28,25 @@ class RNNDecoder(tf.keras.layers.Layer):
 
     def call(self, x, s_prev, hidden_states):
         """
-        Perform one decoding step with attention
+        Perform one decoding step
         """
-        # x shape: (batch, 1)
-        x = self.embedding(x)
+        # x: (batch, 1)
+        x = self.embedding(x)  # (batch, 1, embedding)
 
-        # Context vector from attention
+        # Attention
         context, _ = self.attention(s_prev, hidden_states)
+        context = tf.expand_dims(context, 1)  # (batch, 1, units)
 
         # Concatenate context and embedding
-        context = tf.expand_dims(context, 1)
         x = tf.concat([context, x], axis=-1)
 
-        # GRU step
-        _, s = self.gru(x, initial_state=s_prev)
+        # GRU forward pass
+        outputs, s = self.gru(x, initial_state=s_prev)
 
-        # Output prediction
-        y = self.F(s)
+        # Use last time step
+        outputs = outputs[:, -1, :]  # (batch, units)
+
+        # Final prediction
+        y = self.F(outputs)  # (batch, vocab)
 
         return y, s
