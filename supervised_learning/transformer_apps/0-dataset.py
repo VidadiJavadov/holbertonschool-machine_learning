@@ -8,52 +8,57 @@ import transformers
 
 class Dataset:
     """
-    Loads and preps a dataset for machine translation:
-    Portuguese to English.
+    Loads and preps a dataset for machine translation from Portuguese to English.
     """
 
     def __init__(self):
         """
-        Initializes the dataset and creates sub-word tokenizers.
+        Initializes the Dataset instance with train and validation splits,
+        and creates the sub-word tokenizers.
         """
-        # Load train and validation splits as (pt, en) tuples
-        self.data_train, self.data_valid = tfds.load(
+        # Load the dataset splits as supervised (pt, en) tuples
+        self.data_train = tfds.load(
             'ted_hrlr_translate/pt_to_en',
-            split=['train', 'validation'],
+            split='train',
+            as_supervised=True
+        )
+        self.data_valid = tfds.load(
+            'ted_hrlr_translate/pt_to_en',
+            split='validation',
             as_supervised=True
         )
 
-        # Generate tokenizers from training set
+        # Initialize and train tokenizers on the training set
         self.tokenizer_pt, self.tokenizer_en = self.tokenize_dataset(
             self.data_train
         )
 
     def tokenize_dataset(self, data):
         """
-        Creates sub-word tokenizers for the dataset.
+        Creates sub-word tokenizers for the dataset using pre-trained BERT models.
 
         Args:
-            data: tf.data.Dataset containing (pt, en) tuples.
+            data: tf.data.Dataset whose examples are formatted as (pt, en)
 
         Returns:
-            tokenizer_pt, tokenizer_en: The trained tokenizers.
+            tokenizer_pt: Portuguese tokenizer
+            tokenizer_en: English tokenizer
         """
-        # Base BERT models for configuration
-        pt_path = "neuralmind/bert-base-portuguese-cased"
-        en_path = "bert-base-uncased"
-
-        # Load base tokenizers
-        tk_pt = transformers.AutoTokenizer.from_pretrained(pt_path)
-        tk_en = transformers.AutoTokenizer.from_pretrained(en_path)
+        # Load base tokenizers to inherit the WordPiece logic
+        tk_pt = transformers.AutoTokenizer.from_pretrained(
+            "neuralmind/bert-base-portuguese-cased"
+        )
+        tk_en = transformers.AutoTokenizer.from_pretrained(
+            "bert-base-uncased"
+        )
 
         def get_corpus(index):
-            """Yields decoded strings for the specific language index."""
+            """Generator to yield strings from the dataset for training."""
+            # Each example is a tuple: (portuguese_tensor, english_tensor)
             for example in data:
-                # index 0: Portuguese, index 1: English
                 yield example[index].numpy().decode('utf-8')
 
-        # Train new tokenizers with vocab size 2**13 (8192)
-        # Using WordPiece algorithm inherited from BERT
+        # Train new versions of the tokenizers with vocab size 2**13 (8192)
         tokenizer_pt = tk_pt.train_new_from_iterator(
             get_corpus(0),
             vocab_size=2**13
