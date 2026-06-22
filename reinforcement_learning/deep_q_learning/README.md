@@ -1,1 +1,1 @@
-DEEP Q LEARNING
+This folder contains a model to play Atari
